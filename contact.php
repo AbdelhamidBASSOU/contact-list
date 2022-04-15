@@ -128,6 +128,9 @@ $contacts = $viewdata->displayRecord();
         </div>
       </div>
     </div>
+    <?php
+    include_once("add.php");
+    ?>
 
     <button id="theme_button" class="btn btn-theme" onclick="onThemeChange()">
       <i id="theme_icon" class="fas fa-moon"></i>
