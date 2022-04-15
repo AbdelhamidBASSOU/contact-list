@@ -26,7 +26,7 @@ $contacts = $viewdata->displayRecord();
       <a class="navbar-brand" href="./index.php">Contact list</a>
     </div>
     <div class="collapse navbar-collapse" id="navbarText">
-      <a href="dashbord.php" class="navbar-text">Alex </a>
+      <a href="dashbord.php" class="navbar-text">Profile</a>
     </div>
     <div class="collapse navbar-collapse" id="navbarText">
       <a href="./contact.php" class="navbar-text">Contact </a>
@@ -37,21 +37,24 @@ $contacts = $viewdata->displayRecord();
   </nav>
   <div class="page-content d-flex align-items-center" style="position:relative;">
     <div class="container d-flex justify-content-center">
-      <div class="col-12 col-sm-10 col-md-8 col-lg-7 col-xl-6 col-xxl-5">
-        <div class="auth-card" style="height: 500px; width: 650px">
-          <h1 class="d-flex justify-content-center txt" style="font-size: 60px">
-            CONTACTS
-          </h1>
+      <div class="col-12 col-sm-10 col-md-8 col-lg-9 ">
+        <div class=" auth-card" style="height: 500px; max-height:440px;width:100%; overflow:scroll;">
+          <div class="sticky-top w-100 " style="padding-top:0px;z-index:1030;background-color:#e5e5e5;;">
+            <h1 class="d-flex justify-content-center txt " style="color:#45a29e;font-size: 60px">
+              CONTACTS
+            </h1>
+          </div>
           <br /><br />
           <h4 class="txt">Contact list:</h4>
           <br /><br />
-          <div class="d-flex" style="
+
+          <div class="d-flex table-responsive-sm table-responsive-md px-2" style="
                 justify-content: space-evenly;
                 align-items: center;
                 flex-direction: column;
               ">
-            <table class="txt table ">
-              <thead>
+            <table class="txt table table table-hover align-middle table-borderless caption-top mb-3 mb-md-0 ">
+              <thead class="sticky-top">
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Email</th>
@@ -72,7 +75,7 @@ $contacts = $viewdata->displayRecord();
                     <th scope="col">
                       <i class="ed fal fa-pen" data-id="<?php echo $contacte["id"] ?>" onclick="<?php $userid = $contacte["id"];
                                                                                                 ?> " style="color: #1da19b"></i>
-                      <a href="#"><i class="del fal fa-trash mx-1" style="color: #1da19b"></i></a>
+                      <a href="delete.php?id=<?php echo $contacte["id"] ?>"><i class="del fal fa-trash mx-1" style="color: #1da19b"></i></a>
                     </th>
                   </tr>
                 </tbody>

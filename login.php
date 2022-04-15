@@ -11,6 +11,7 @@ if (isset($_POST['login'])) {
 
   if ($auth) {
     $_SESSION['user'] = $auth;
+    $_SESSION ['time']=date("Y-m-d H:i:s");
 
     header('location:dashbord.php');
   } else {

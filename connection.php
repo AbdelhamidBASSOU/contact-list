@@ -96,7 +96,7 @@ class DB_con
     }
     public function displayRecord()
     {
-        $sql = "SELECT * FROM contact WHERE iduser ='" . $_SESSION['user']. "'";
+        $sql = "SELECT * FROM contact WHERE iduser ='" . $_SESSION['user'] . "'";
         $query = $this->dbh->query($sql);
         $data = array();
         if ($query->num_rows > 0) {
@@ -109,10 +109,30 @@ class DB_con
         }
     }
 
-   
-    public function update($email, $phone, $adresse, $fname, $insertdate, $id)
+
+    public function update($email, $phone, $adresse, $fname, $id)
     {
-        echo  $sql = "UPDATE contact SET email='$email',phone='$phone',adresse='$adresse',fullname='$fname',date='$insertdate' where id='" . $id . "'";
+        echo  $sql = "UPDATE contact SET email='$email',phone='$phone',adresse='$adresse',fullname='$fname' where id='" . $id . "'";
+        $query = $this->dbh->query($sql);
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function deleteRecord($id,$Id)
+    {
+        $sql = "DELETE from contact where iduser =$id and id=$Id";
+        $query = $this->dbh->query($sql);
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function save($email, $phone, $adresse, $fname, $insertdate)
+    {
+        $sql = "INSERT INTO contact(email,phone,adresse,fullname,date) VALUES('$email',' $phone',' $adresse',' $fname',' $insertdate')";
         $query = $this->dbh->query($sql);
         if ($query) {
             return true;
