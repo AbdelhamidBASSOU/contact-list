@@ -82,7 +82,7 @@ $contacts = $viewdata->displayRecord();
               <?php endforeach; ?>
             </table>
 
-            <a href="#" type="button" class="btn text-white my-3" style="background-color: #1da19b">ADD NEW CONTACT</a>
+            <a href="" type="button" class="btn text-white my-3" style="background-color: #1da19b">ADD NEW CONTACT</a>
           </div>
           <br /><br />
         </div>
@@ -128,9 +128,9 @@ $contacts = $viewdata->displayRecord();
         </div>
       </div>
     </div>
-    <?php
-    include_once("add.php");
-    ?>
+
+
+
 
     <button id="theme_button" class="btn btn-theme" onclick="onThemeChange()">
       <i id="theme_icon" class="fas fa-moon"></i>
@@ -163,6 +163,17 @@ $contacts = $viewdata->displayRecord();
 
       document.querySelector(".close").addEventListener("click", function() {
         document.querySelector("#bgdark").style.display = "none";
+      });
+
+      document.addEventListener("Load", () => {
+        if (window.location.href.split("?")[1]) {
+          document.querySelector("#modalAddCours").style.display = "flex";
+        }
+      });
+
+      document.querySelector(".hideModel").addEventListener("click", function() {
+        document.querySelector("#modalAddCours").style.display = "none";
+        document.querySelector("dark").style.display = "none";
       });
 
       function onThemeChange() {

@@ -24,6 +24,7 @@ if (isset($_POST['submit'])) {
     if ($sql) {
 
       echo "<script>alert('Registration successfull.');</script>";
+      header('location:login.php');
     } else {
 
       echo "<script>alert('Something went wrong. Please try again');</script>";
@@ -68,7 +69,7 @@ if (isset($_POST['submit'])) {
 
           <hr class="separator" />
 
-          <form method="POST" action="update.php">
+          <form method="POST" action="">
             <div class="mb-2 mt-5">
               <input id="Username" type="name" name="name" class="form-control auth-input" placeholder="username" aria-describedby="name" />
               <div id="errUser" class="mb-2"></div>
@@ -90,7 +91,7 @@ if (isset($_POST['submit'])) {
               <div id="errPassV" class="mb-2"></div>
             </div>
 
-            <button id="signup" href="login.php" name="submit" type="submit" class="btn auth-btn mt-2 mb-4">Register</button>
+            <button id="signup" href="" name="submit" type="submit" class="btn auth-btn mt-2 mb-4">Register</button>
           </form>
 
           <p class="text mb-4">
@@ -109,7 +110,7 @@ if (isset($_POST['submit'])) {
   <script type="text/javascript">
     function onThemeChange() {
       let cssStyleSheet = document.getElementById("mainStyle");
-      let path = cssStyleSheet.href.substring( 
+      let path = cssStyleSheet.href.substring(
         cssStyleSheet.href.length - 9,
         cssStyleSheet.href.length
       );

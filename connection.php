@@ -120,7 +120,7 @@ class DB_con
             return false;
         }
     }
-    public function deleteRecord($id,$Id)
+    public function deleteRecord($id, $Id)
     {
         $sql = "DELETE from contact where iduser =$id and id=$Id";
         $query = $this->dbh->query($sql);
@@ -130,9 +130,9 @@ class DB_con
             return false;
         }
     }
-    public function save($email, $phone, $adresse, $fname, $insertdate)
+    public function save($email, $phone, $adresse, $fname,$id)
     {
-        $sql = "INSERT INTO contact(email,phone,adresse,fullname,date) VALUES('$email',' $phone',' $adresse',' $fname',' $insertdate')";
+        echo  $sql = "INSERT INTO contact(email,phone,adresse,fullname) VALUES('$email', '$phone','$adresse','$fname')where id='" . $id . "'";
         $query = $this->dbh->query($sql);
         if ($query) {
             return true;
