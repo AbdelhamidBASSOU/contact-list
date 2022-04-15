@@ -8,16 +8,25 @@ if (isset($_POST['submit'])) {
   $password = $_POST['password'];
   $rpassword = $_POST['rpassword'];
 
+
+
+  /*if (!empty($uemail) || !empty($password)) {
+    if (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,12}$/', $password)) {
+      echo 'the password does not meet the requirements!';
+    }
+    if (!preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $uemail)) {
+      echo 'the Email does not meet the requirements!';
+    }
+  }*/
+
   if ($password == $rpassword) {
     $sql = $userdata->registration($uname, $uemail, $password);
     if ($sql) {
 
       echo "<script>alert('Registration successfull.');</script>";
-      echo "<script>window.location.href='login.php'</script>";
     } else {
 
       echo "<script>alert('Something went wrong. Please try again');</script>";
-      echo "<script>window.location.href='login.php'</script>";
     }
   } else {
     echo "<script>alert('password doesn't match');</script>";
@@ -59,23 +68,29 @@ if (isset($_POST['submit'])) {
 
           <hr class="separator" />
 
-          <form method="POST">
+          <form method="POST" action="update.php">
             <div class="mb-2 mt-5">
-              <input type="name" name="name" class="form-control auth-input" placeholder="username" aria-describedby="name" />
+              <input id="Username" type="name" name="name" class="form-control auth-input" placeholder="username" aria-describedby="name" />
+              <div id="errUser" class="mb-2"></div>
             </div>
             <div class="mb-2">
-              <input type="email" name="email" class="form-control auth-input" placeholder="E-Mail Adresse" aria-describedby="emailHelp" />
+              <input id="Email" type="email" name="email" class="form-control auth-input" placeholder="E-Mail Adresse" aria-describedby="emailHelp" />
+              <div id="errEmail" class="mb-2"></div>
+              <small></small>
             </div>
 
             <div class="mb-2">
-              <input type="password" name="password" class="form-control auth-input" placeholder="Password" />
+              <input id="Password" type="password" name="password" class="form-control auth-input" placeholder="Password" />
+              <div id="errPass" class="mb-2"></div>
+              <small></small>
             </div>
 
             <div class="mb-3">
-              <input type="password" name="rpassword" class="form-control auth-input" placeholder="Repeat Password" />
+              <input id="PasswordV" type="password" name="rpassword" class="form-control auth-input" placeholder="Repeat Password" />
+              <div id="errPassV" class="mb-2"></div>
             </div>
 
-            <button href="login.php" name="submit" type="submit" class="btn auth-btn mt-2 mb-4">Register</button>
+            <button id="signup" href="login.php" name="submit" type="submit" class="btn auth-btn mt-2 mb-4">Register</button>
           </form>
 
           <p class="text mb-4">
@@ -94,7 +109,7 @@ if (isset($_POST['submit'])) {
   <script type="text/javascript">
     function onThemeChange() {
       let cssStyleSheet = document.getElementById("mainStyle");
-      let path = cssStyleSheet.href.substring(
+      let path = cssStyleSheet.href.substring( 
         cssStyleSheet.href.length - 9,
         cssStyleSheet.href.length
       );
@@ -109,7 +124,7 @@ if (isset($_POST['submit'])) {
       }
     }
   </script>
-
+  <script src="./signupvalidation.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 

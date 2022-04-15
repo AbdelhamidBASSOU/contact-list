@@ -1,3 +1,13 @@
+<?php
+/*session_start();
+$timern=time()-$_SESSION ['time'];
+if($timern > 3600){
+    session_start();
+    session_unset();
+    session_destroy();
+    header('location:index.php');
+}*/
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>

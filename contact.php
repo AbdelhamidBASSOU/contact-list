@@ -1,9 +1,9 @@
 <?php
+session_start();
 include_once("connection.php");
 $viewdata = new DB_con();
 $contacts = $viewdata->displayRecord();
-$userid = $_GET['id'];
-$contact = $viewdata->displayRecordbyid($userid);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,21 +61,22 @@ $contact = $viewdata->displayRecordbyid($userid);
                   <th scope="col">Action</th>
                 </tr>
               </thead>
-              <?php foreach ($contacts as $contact) { ?>
+              <?php foreach ($contacts as $contacte) : ?>
                 <tbody>
                   <tr>
-                    <th scope="col"><?php echo $contact["id"] ?></th>
-                    <th scope="col"><?php echo $contact["email"] ?></th>
-                    <th scope="col"><?php echo $contact["phone"] ?></th>
-                    <th scope="col"><?php echo $contact["adresse"] ?></th>
-                    <th scope="col"><?php echo $contact["fullname"] ?></th>
+                    <th scope="col"><?php echo $contacte["id"] ?></th>
+                    <th scope="col"><?php echo $contacte["email"] ?></th>
+                    <th scope="col"><?php echo $contacte["phone"] ?></th>
+                    <th scope="col"><?php echo $contacte["adresse"] ?></th>
+                    <th scope="col"><?php echo $contacte["fullname"] ?></th>
                     <th scope="col">
-                      <a href='?id=<?php echo $contact['id'] ?> '> <i class="ed fal fa-pen" style="color: #1da19b"></i></a>
+                      <i class="ed fal fa-pen" data-id="<?php echo $contacte["id"] ?>" onclick="<?php $userid = $contacte["id"];
+                                                                                                ?> " style="color: #1da19b"></i>
                       <a href="#"><i class="del fal fa-trash mx-1" style="color: #1da19b"></i></a>
                     </th>
                   </tr>
                 </tbody>
-              <?php } ?>
+              <?php endforeach; ?>
             </table>
 
             <a href="#" type="button" class="btn text-white my-3" style="background-color: #1da19b">ADD NEW CONTACT</a>
@@ -84,6 +85,7 @@ $contact = $viewdata->displayRecordbyid($userid);
         </div>
       </div>
     </div>
+
     <div class="model" id="bgdark" style="display:none;">
       <div class="modal-dialog w-100" id="exampleModal">
         <div class="modal-content">
@@ -91,27 +93,28 @@ $contact = $viewdata->displayRecordbyid($userid);
             <h5 class="modal-title" id="exampleModalLabel">Update</h5>
           </div>
           <div class="modal-body">
+
             <form name="frmUser" method="post" action="update.php">
               <h1>Update</h1>
               <div class="form-group">
                 <label for="id">id</label>
-                <input type="hidden" class="form-control" name="id" value="<?php echo $contact['id']; ?>">
+                <input type="hidden" class="form-control" name="id" value="">
               </div>
               <div class="form-group">
                 <label for="email">email</label>
-                <input type="email" class="form-control" placeholder="contact@email.com" name="email" value="<?php echo $contact['email']; ?>">
+                <input type="email" class="form-control" placeholder="contact@email.com" name="email" value="">
               </div>
               <div class="form-group">
                 <label for="phone">phone</label>
-                <input type="text" class="form-control" placeholder="123XXXXXXXXXX" name="phone" value="<?php echo $contact['phone']; ?>">
+                <input type="text" class="form-control" placeholder="123XXXXXXXXXX" name="phone" value="">
               </div>
               <div class="form-group">
                 <label for="enroll_number">Adresse</label>
-                <input type="text" class="form-control" placeholder="123XXXXXXXXXX" name="adresse" value="<?php echo $contact['adresse']; ?>">
+                <input type="text" class="form-control" placeholder="123XXXXXXXXXX" name="adresse" value="">
               </div>
               <div class="form-group">
                 <label for="Fullname">Fullname</label>
-                <input type="text" class="form-control" placeholder="Entrez votre nom" name="adresse" value="<?php echo $contact['fullname']; ?>">
+                <input type="text" class="form-control" placeholder="Entrez votre nom" name="fullname" value="">
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary close">Close</button>
@@ -128,14 +131,29 @@ $contact = $viewdata->displayRecordbyid($userid);
     </button>
 
     <script type="text/javascript">
-      const edit = document.querySelector('.ed');
+      const edit = document.querySelectorAll('.ed');
       const modal = document.querySelector("#bgdark");
       const delet = document.querySelector('.del');
-      for(i=0;i<edit.length;i++){
-      edit.addEventListener("click", (e) => {
+      for (i = 0; i < edit.length; i++) {
+        edit[i].addEventListener("click", (e) => {
 
-        modal.setAttribute("style", "display:flex; position:absolute ;z-index : 1060; background-color:rgba(0,0,0,0.5); height:100%;width:100%");
-      });}
+          <?php
+
+          $js_array = json_encode($contacts);
+          echo "var javascript_array = " . $js_array . ";\n";
+          ?>
+          const result = javascript_array.filter(contact => contact.id == e.target.getAttribute("data-id"));
+
+
+          document.getElementsByName("id")[0].value = result[0].id
+          document.getElementsByName("email")[0].value = result[0].email
+          document.getElementsByName("phone")[0].value = result[0].phone
+          document.getElementsByName("adresse")[0].value = result[0].adresse
+          document.getElementsByName("fullname")[0].value = result[0].fullname
+
+          modal.setAttribute("style", "display:flex; position:absolute ;z-index : 1060; background-color:rgba(0,0,0,0.5); height:100%;width:100%");
+        });
+      }
 
       document.querySelector(".close").addEventListener("click", function() {
         document.querySelector("#bgdark").style.display = "none";

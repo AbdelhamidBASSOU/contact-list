@@ -1,6 +1,7 @@
 <?php
 define('DB_SERVER', 'localhost');
 define('DB_USER', 'root');
+
 define('DB_PASS', '');
 define('DB_NAME', 'contactbase');
 class DB_con
@@ -42,7 +43,7 @@ class DB_con
 
         if ($num > 0) {
             $row = $sql->fetch_array();
-            return $row['id.user'];
+            return $row['iduser'];
         } else {
             return false;
         }
@@ -95,7 +96,7 @@ class DB_con
     }
     public function displayRecord()
     {
-        $sql = "SELECT * FROM contact";
+        $sql = "SELECT * FROM contact WHERE iduser ='" . $_SESSION['user']. "'";
         $query = $this->dbh->query($sql);
         $data = array();
         if ($query->num_rows > 0) {
@@ -108,23 +109,10 @@ class DB_con
         }
     }
 
-    public function displayRecordbyid()
+   
+    public function update($email, $phone, $adresse, $fname, $insertdate, $id)
     {
-        $sql = "SELECT * FROM contact WHERE id='" . $_GET['id'] . "'";
-        $query = $this->dbh->query($sql);
-        $data = array();
-        if ($query->num_rows > 0) {
-            while ($row = $query->fetch_assoc()) {
-                $data[] = $row;
-            }
-            return $data;
-        } else {
-            return false;
-        }
-    }
-    public function update($email,$phone, $adresse,$fname,$insertdate)
-    {
-        echo  $sql = "UPDATE $this->contact SET email='$email',phone='$phone',adresse='$adresse',fullname='$fname',date='$insertdate' where id='" . $_GET['id'] . "'";
+        echo  $sql = "UPDATE contact SET email='$email',phone='$phone',adresse='$adresse',fullname='$fname',date='$insertdate' where id='" . $id . "'";
         $query = $this->dbh->query($sql);
         if ($query) {
             return true;

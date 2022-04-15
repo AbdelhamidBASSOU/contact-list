@@ -55,14 +55,16 @@ if (isset($_POST['login'])) {
 
           <form action="" method="POST">
             <div class="mb-2 ">
-              <input type="name" name="name" class="form-control auth-input" placeholder="username" aria-describedby="name" />
+              <input id="username" type="name" name="name" class="form-control auth-input" placeholder="username" aria-describedby="name" />
+              <div id="erreurName" class="mb-2"></div>
             </div>
 
             <div class="mb-3">
-              <input type="password" name="password" class="form-control auth-input" placeholder="Password" />
+              <input id="password" type="password" name="password" class="form-control auth-input" placeholder="Password" />
+              <div id="erreurPassword" class="mb-3"></div>
             </div>
 
-            <button name="login" type="submit" class="btn auth-btn mt-2 mb-4">
+            <button id="login" name="login" type="submit" class="btn auth-btn mt-2 mb-4">
               Login
             </button>
           </form>
@@ -98,6 +100,7 @@ if (isset($_POST['login'])) {
       }
     }
   </script>
+  <script src="./loginvalidation.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 
