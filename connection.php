@@ -1,7 +1,6 @@
 <?php
 define('DB_SERVER', 'localhost');
 define('DB_USER', 'root');
-
 define('DB_PASS', '');
 define('DB_NAME', 'contactbase');
 class DB_con
@@ -110,9 +109,9 @@ class DB_con
     }
 
 
-    public function update($email, $phone, $adresse, $fname, $id)
+    public function update($email, $phone, $adresse, $fname, $id,$iduser)
     {
-        echo  $sql = "UPDATE contact SET email='$email',phone='$phone',adresse='$adresse',fullname='$fname' where id='" . $id . "'";
+        echo  $sql = "UPDATE contact SET email='$email',phone='$phone',adresse='$adresse',fullname='$fname' where id='$id' AND iduser='" . $iduser . "'";
         $query = $this->dbh->query($sql);
         if ($query) {
             return true;
@@ -132,12 +131,7 @@ class DB_con
     }
     public function save($email, $phone, $adresse, $fname,$id)
     {
-        echo  $sql = "INSERT INTO contact(email,phone,adresse,fullname) VALUES('$email', '$phone','$adresse','$fname')where id='" . $id . "'";
-        $query = $this->dbh->query($sql);
-        if ($query) {
-            return true;
-        } else {
-            return false;
-        }
+        $ret = mysqli_query($this->dbh, "INSERT INTO contact(iduser,email,phone,adresse,fullname) values('$id','$email','$phone','$adresse','$fname')");
+        return $ret;
     }
 }

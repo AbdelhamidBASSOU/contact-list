@@ -1,18 +1,19 @@
 <?php
+session_start();
 include_once("connection.php");
 $insertdata=new DB_con();
-if(isset($_POST['submit']))
+if(isset($_POST['Add']))
 {
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $adresse = $_POST['adresse'];
     $fname = $_POST['fullname'];
-    date_default_timezone_set("Asia/Calcutta");
-    $insertdate = date("Y-m-d H:i:s");
-    $sql=$insertdata->save($email, $phone,$adresse,$fname,$insertdate);
+    $id=$_SESSION['user'];
+    $sql=$insertdata->save($email, $phone,$adresse,$fname,$id);
     if($sql)
     {
        echo "Data inserted successfully !";
+       header("location:contact.php");
     }
     else
     {
@@ -20,7 +21,7 @@ if(isset($_POST['submit']))
     }
 }
  ?>
- <div class="model" id="modalAddCours">
+ <!-- <div class="model" id="modalAddCours">
 <div class="modal-dialog" id="dark">
         <div class="modal-content">
             <div class="modal-header">
@@ -61,4 +62,4 @@ if(isset($_POST['submit']))
             </div>
         </div>
 </div>
-</div>
+</div> -->

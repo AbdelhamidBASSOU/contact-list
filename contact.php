@@ -40,7 +40,7 @@ $contacts = $viewdata->displayRecord();
       <div class="col-12 col-sm-10 col-md-8 col-lg-9 ">
         <div class=" auth-card" style="height: 500px; max-height:440px;width:100%; overflow:scroll;">
           <div class="sticky-top w-100 " style="padding-top:0px;z-index:1030;background-color:#e5e5e5;;">
-            <h1 class="d-flex justify-content-center txt " style="color:#45a29e;font-size: 60px">
+            <h1 class="car d-flex justify-content-center txt " style="color:#45a29e;font-size: 60px">
               CONTACTS
             </h1>
           </div>
@@ -82,7 +82,7 @@ $contacts = $viewdata->displayRecord();
               <?php endforeach; ?>
             </table>
 
-            <a href="" type="button" class="btn text-white my-3" style="background-color: #1da19b">ADD NEW CONTACT</a>
+            <a href="" type="button" class="btn addContact text-white my-3" style="background-color: #1da19b">ADD NEW CONTACT</a>
           </div>
           <br /><br />
         </div>
@@ -97,8 +97,7 @@ $contacts = $viewdata->displayRecord();
           </div>
           <div class="modal-body">
 
-            <form name="frmUser" method="post" action="update.php">
-              <h1>Update</h1>
+            <form name="frmUser" class="form" method="post" action="">
               <div class="form-group">
                 <label for="id">id</label>
                 <input type="hidden" class="form-control" name="id" value="">
@@ -121,7 +120,7 @@ $contacts = $viewdata->displayRecord();
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary close">Close</button>
-                <input type="submit" name="update" class="btn btn-primary" value="Update">
+                <input type="submit" name="" class="btn boutton btn-primary" value="">
               </div>
             </form>
           </div>
@@ -138,19 +137,25 @@ $contacts = $viewdata->displayRecord();
 
     <script type="text/javascript">
       const edit = document.querySelectorAll('.ed');
+      const add = document.querySelector('.addContact');
       const modal = document.querySelector("#bgdark");
       const delet = document.querySelector('.del');
+      const titre = document.querySelector('.modal-title');
+      const btn = document.querySelector('.boutton');
+      const action = document.querySelector('.form');
       for (i = 0; i < edit.length; i++) {
         edit[i].addEventListener("click", (e) => {
 
           <?php
-
           $js_array = json_encode($contacts);
           echo "var javascript_array = " . $js_array . ";\n";
           ?>
           const result = javascript_array.filter(contact => contact.id == e.target.getAttribute("data-id"));
 
-
+          titre.innerText="Update";
+          btn.value="Update";
+          btn.name ="update";
+          action.setAttribute("action","update.php");
           document.getElementsByName("id")[0].value = result[0].id
           document.getElementsByName("email")[0].value = result[0].email
           document.getElementsByName("phone")[0].value = result[0].phone
@@ -165,7 +170,24 @@ $contacts = $viewdata->displayRecord();
         document.querySelector("#bgdark").style.display = "none";
       });
 
-      document.addEventListener("Load", () => {
+      add.addEventListener("click", (ad) => {
+
+
+        ad.preventDefault();
+        titre.innerText="Add Contact";
+        btn.value ="Add";
+        btn.name ="Add";
+        action.setAttribute("action","add.php");
+        document.getElementsByName("id").value = ""
+        document.getElementsByName("email").value = ""
+        document.getElementsByName("phone").value = ""
+        document.getElementsByName("adresse").value = ""
+        document.getElementsByName("fullname").value = ""
+
+        modal.setAttribute("style", "display:flex; position:absolute ;z-index : 1060; background-color:rgba(0,0,0,0.5); height:100%;width:100%");
+      });
+
+      /*document.addEventListener("Load", () => {
         if (window.location.href.split("?")[1]) {
           document.querySelector("#modalAddCours").style.display = "flex";
         }
@@ -174,7 +196,7 @@ $contacts = $viewdata->displayRecord();
       document.querySelector(".hideModel").addEventListener("click", function() {
         document.querySelector("#modalAddCours").style.display = "none";
         document.querySelector("dark").style.display = "none";
-      });
+      });*/
 
       function onThemeChange() {
         let cssStyleSheet = document.getElementById("mainStyle");

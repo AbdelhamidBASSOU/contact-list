@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once("connection.php");
 $insertdata = new DB_con();
 
@@ -8,14 +9,15 @@ if (isset($_POST['update'])) {
     $phone = $_POST['phone'];
     $adresse = $_POST['adresse'];
     $fname = $_POST['fullname'];
-   
+    $iduser = $_SESSION['user'];
     
-    $sql = $insertdata->update($email, $phone, $adresse, $fname,$id);
+    $sql = $insertdata->update($email, $phone, $adresse, $fname,$id,$iduser);
     if ($sql) {
-        echo "Data inserted successfully !";
+        echo "<script>alert('Data inserted successfully !')</script>";
 
         header('location:contact.php');
     } else {
-        echo "Data inserted error !";
+        echo "<script>alert('Data inserted successfully !')</script>";
     }
 }
+?>

@@ -120,4 +120,7 @@
 .navbar-text:hover {
   color: #1da19b;
 }
-
+.card {
+  background-color: #1da19b;
+  color: white;
+}
