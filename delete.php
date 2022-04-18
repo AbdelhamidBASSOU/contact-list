@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once("connection.php");
+include_once("DB_con.php");
 $insertdata=new DB_con();
 $id = $_SESSION['user'];
 if(isset($_GET['id'])){

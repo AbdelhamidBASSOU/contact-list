@@ -1,5 +1,5 @@
 <?php
-include_once('connection.php');
+include_once('DB_con.php');
 $userdata = new DB_con();
 if (isset($_POST['submit'])) {
 

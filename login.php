@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once('connection.php');
+include_once('DB_con.php');
 $user = new  DB_con();
 
 if (isset($_POST['login'])) {

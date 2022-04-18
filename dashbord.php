@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once("connection.php");
+include_once("DB_con.php");
 $viewdata = new DB_con();
 $sql = "SELECT * FROM user WHERE iduser='" . $_SESSION['user'] . "'";
 $contacts = $viewdata->details($sql);

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("connection.php");
+include("DB_con.php");
 $viewdata = new DB_con();
 $contacts = $viewdata->displayRecord();
 $msg = 'no contact yet!';
@@ -59,7 +59,7 @@ if ($contacts === 'false') {
                 align-items: center;
                 flex-direction: column;
               ">
-            <table class="txt table table table-hover align-middle table-borderless caption-top mb-3 mb-md-0 ">
+            <table class="txt table-hover  table align-middle table-borderless caption-top mb-3 mb-md-0 ">
               <thead class="sticky-top" style="background-color: #1da19b;
                                                                          color: white;">
                 <tr>
@@ -82,8 +82,8 @@ if ($contacts === 'false') {
                   $adress = $contacte["adresse"];
                   $phone = $contacte["phone"];
                   ?>
-                  <tbody >
-                    <tr class="hvr">
+                  <tbody>
+                    <tr>
                       <th scope="col"><?= $id ?></th>
                       <th scope="col"><?= $email ?></th>
                       <th scope="col"><?= $phone ?></th>
@@ -116,13 +116,13 @@ if ($contacts === 'false') {
       <div class="modal-dialog w-100" id="exampleModal">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Update</h5>
+            <h5 style="color:#1da19b;" class="modal-title" id="exampleModalLabel"></h5>
           </div>
           <div class="modal-body">
 
             <form name="frmUser" class="form" method="post" action="">
               <div class="form-group">
-                <label for="id">id</label>
+                <label type="" for="id"></label>
                 <input type="hidden" class="form-control" name="id" value="">
               </div>
               <div class="form-group">
@@ -143,7 +143,7 @@ if ($contacts === 'false') {
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary close">Close</button>
-                <input type="submit" name="" class="btn boutton btn-primary" value="">
+                <input style="background-color:#1da19b;" type="submit" name="" class="btn boutton btn-primary" value="">
               </div>
             </form>
           </div>
