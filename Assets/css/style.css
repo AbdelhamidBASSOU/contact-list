@@ -10,18 +10,8 @@
   border-radius: 20px;
   padding: 10px 10%;
 }
-.logo-area {
-  padding: 20px 30%;
-  margin-top: 60px;
-}
-.logo-area h5 {
-  font-size: x-large;
-}
 
-.logo {
-  width: 100%;
-  height: auto;
-}
+
 
 .auth-title {
   text-align: center;
@@ -72,19 +62,8 @@
   color: rgb(138, 138, 138);
 }
 
-.auth-btn {
-  background: #45a29e;
-  color: white;
-  height: 45px;
-  width: 100%;
-  font-size: 18px;
-  box-shadow: none !important;
-}
 
-.auth-btn:hover {
-  background: #24726e;
-  color: white;
-}
+
 
 .text {
   text-align: center;
@@ -122,3 +101,4 @@ br {
 .btnn {
   color: #1da19b;
 }
+

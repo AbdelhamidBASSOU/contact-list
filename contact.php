@@ -1,9 +1,12 @@
 <?php
 session_start();
-include_once("connection.php");
+include("connection.php");
 $viewdata = new DB_con();
 $contacts = $viewdata->displayRecord();
-
+$msg = 'no contact yet!';
+if ($contacts === 'false') {
+  $msg;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,13 +37,16 @@ $contacts = $viewdata->displayRecord();
     <div class="collapse navbar-collapse" id="navbarText">
       <a href="./index.php" class="navbar-text"> Logout </a>
     </div>
+    <button id="theme_button" class="btn btn-theme" onclick="onThemeChange()">
+      <i id="theme_icon" class="fas fa-moon"></i>
+    </button>
   </nav>
   <div class="page-content d-flex align-items-center" style="position:relative;">
     <div class="container d-flex justify-content-center">
       <div class="col-12 col-sm-10 col-md-8 col-lg-9 ">
         <div class=" auth-card" style="height: 500px; max-height:440px;width:100%; overflow:scroll;">
-          <div class="sticky-top w-100 " style="padding-top:0px;z-index:1030;background-color:#e5e5e5;;">
-            <h1 class="car d-flex justify-content-center txt " style="color:#45a29e;font-size: 60px">
+          <div class="card sticky-top w-100 " style="padding-top:0px;z-index:1030;">
+            <h1 class="car d-flex justify-content-center " style="font-size: 60px">
               CONTACTS
             </h1>
           </div>
@@ -54,7 +60,8 @@ $contacts = $viewdata->displayRecord();
                 flex-direction: column;
               ">
             <table class="txt table table table-hover align-middle table-borderless caption-top mb-3 mb-md-0 ">
-              <thead class="sticky-top">
+              <thead class="sticky-top" style="background-color: #1da19b;
+                                                                         color: white;">
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Email</th>
@@ -64,22 +71,38 @@ $contacts = $viewdata->displayRecord();
                   <th scope="col">Action</th>
                 </tr>
               </thead>
-              <?php foreach ($contacts as $contacte) : ?>
-                <tbody>
-                  <tr>
-                    <th scope="col"><?php echo $contacte["id"] ?></th>
-                    <th scope="col"><?php echo $contacte["email"] ?></th>
-                    <th scope="col"><?php echo $contacte["phone"] ?></th>
-                    <th scope="col"><?php echo $contacte["adresse"] ?></th>
-                    <th scope="col"><?php echo $contacte["fullname"] ?></th>
-                    <th scope="col">
-                      <i class="ed fal fa-pen" data-id="<?php echo $contacte["id"] ?>" onclick="<?php $userid = $contacte["id"];
-                                                                                                ?> " style="color: #1da19b"></i>
-                      <a href="delete.php?id=<?php echo $contacte["id"] ?>"><i class="del fal fa-trash mx-1" style="color: #1da19b"></i></a>
-                    </th>
-                  </tr>
-                </tbody>
-              <?php endforeach; ?>
+              <?php
+              if (is_array($contacts) || is_object($contacts)) { ?>
+
+                <?php foreach ($contacts as $contacte) : ?>
+                  <?php
+                  $id = $contacte["id"];
+                  $name = $contacte["fullname"];
+                  $email = $contacte["email"];
+                  $adress = $contacte["adresse"];
+                  $phone = $contacte["phone"];
+                  ?>
+                  <tbody >
+                    <tr class="hvr">
+                      <th scope="col"><?= $id ?></th>
+                      <th scope="col"><?= $email ?></th>
+                      <th scope="col"><?= $phone ?></th>
+                      <th scope="col"><?= $adress ?></th>
+                      <th scope="col"><?= $name ?></th>
+                      <th scope="col">
+                        <i class="ed fal fa-pen" data-id="<?= $id ?>" onclick="<?php $userid = $id;
+                                                                                ?> " style="color: #1da19b"></i>
+                        <a href="delete.php?id=<?= $contacte["id"] ?>"><i class="del fal fa-trash mx-1" style="color: #1da19b"></i></a>
+                      </th>
+
+                    </tr>
+                  </tbody>
+
+
+                <?php endforeach; ?>
+              <?php } else { ?>
+                <?php echo $msg ?>
+              <?php } ?>
             </table>
 
             <a href="" type="button" class="btn addContact text-white my-3" style="background-color: #1da19b">ADD NEW CONTACT</a>
@@ -131,9 +154,7 @@ $contacts = $viewdata->displayRecord();
 
 
 
-    <button id="theme_button" class="btn btn-theme" onclick="onThemeChange()">
-      <i id="theme_icon" class="fas fa-moon"></i>
-    </button>
+
 
     <script type="text/javascript">
       const edit = document.querySelectorAll('.ed');
@@ -152,10 +173,10 @@ $contacts = $viewdata->displayRecord();
           ?>
           const result = javascript_array.filter(contact => contact.id == e.target.getAttribute("data-id"));
 
-          titre.innerText="Update";
-          btn.value="Update";
-          btn.name ="update";
-          action.setAttribute("action","update.php");
+          titre.innerText = "Update";
+          btn.value = "Update";
+          btn.name = "update";
+          action.setAttribute("action", "update.php");
           document.getElementsByName("id")[0].value = result[0].id
           document.getElementsByName("email")[0].value = result[0].email
           document.getElementsByName("phone")[0].value = result[0].phone
@@ -174,10 +195,10 @@ $contacts = $viewdata->displayRecord();
 
 
         ad.preventDefault();
-        titre.innerText="Add Contact";
-        btn.value ="Add";
-        btn.name ="Add";
-        action.setAttribute("action","add.php");
+        titre.innerText = "Add Contact";
+        btn.value = "Add";
+        btn.name = "Add";
+        action.setAttribute("action", "add.php");
         document.getElementsByName("id").value = ""
         document.getElementsByName("email").value = ""
         document.getElementsByName("phone").value = ""
@@ -197,23 +218,8 @@ $contacts = $viewdata->displayRecord();
         document.querySelector("#modalAddCours").style.display = "none";
         document.querySelector("dark").style.display = "none";
       });*/
-
-      function onThemeChange() {
-        let cssStyleSheet = document.getElementById("mainStyle");
-        let path = cssStyleSheet.href.substring(
-          cssStyleSheet.href.length - 9,
-          cssStyleSheet.href.length
-        );
-        if (path === "style.css") {
-          cssStyleSheet.href = "assets/css/style_dark.css";
-
-          document.getElementById("theme_icon").className = "fas fa-sun";
-        } else {
-          cssStyleSheet.href = "assets/css/style.css";
-          document.getElementById("theme_icon").className = "fas fa-moon";
-        }
-      }
     </script>
+    <script src="./mode.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 

@@ -75,7 +75,7 @@ class DB_con
             }
             return $data;
         } else {
-            return false;
+           echo 'false';
         }
     }
     public function displaycontactupdate()
@@ -95,28 +95,39 @@ class DB_con
     }
     public function displayRecord()
     {
-        $sql = "SELECT * FROM contact WHERE iduser ='" . $_SESSION['user'] . "'";
-        $query = $this->dbh->query($sql);
-        $data = array();
-        if ($query->num_rows > 0) {
-            while ($row = $query->fetch_assoc()) {
-                $data[] = $row;
+
+        try {
+            //code...
+            $msg = "no contact created";
+            $sql = "SELECT * FROM contact WHERE iduser ='" . $_SESSION['user'] . "'";
+            $query =     $this->dbh->query($sql);
+            $data = array();
+            if ($query->num_rows > 0) {
+                while ($row = $query->fetch_assoc()) {
+                    $data[] = $row;
+                }
+                return $data;
+            } else {
+                return $msg;
             }
-            return $data;
-        } else {
-            return false;
+        } catch (\Throwable) {
+            throw new Exception("Error Processing Request", 1);
         }
     }
 
 
-    public function update($email, $phone, $adresse, $fname, $id,$iduser)
+    public function update($email, $phone, $adresse, $fname, $id, $iduser)
     {
-        echo  $sql = "UPDATE contact SET email='$email',phone='$phone',adresse='$adresse',fullname='$fname' where id='$id' AND iduser='" . $iduser . "'";
-        $query = $this->dbh->query($sql);
-        if ($query) {
-            return true;
-        } else {
-            return false;
+        try {
+            //code...
+            $sql = "UPDATE contact SET email='$email',phone='$phone',adresse='$adresse',fullname='$fname' where id='$id' AND iduser='" . $iduser . "'";
+            $query = $this->dbh->query($sql);
+            if ($query) {
+                $th =  "contact created";
+                return json_encode($th);
+            }
+        } catch (\Throwable $th) {
+            throw new Error('try later');
         }
     }
     public function deleteRecord($id, $Id)
@@ -129,7 +140,7 @@ class DB_con
             return false;
         }
     }
-    public function save($email, $phone, $adresse, $fname,$id)
+    public function save($email, $phone, $adresse, $fname, $id)
     {
         $ret = mysqli_query($this->dbh, "INSERT INTO contact(iduser,email,phone,adresse,fullname) values('$id','$email','$phone','$adresse','$fname')");
         return $ret;
