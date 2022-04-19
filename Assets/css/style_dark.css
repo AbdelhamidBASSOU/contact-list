@@ -120,11 +120,7 @@
 .navbar-text:hover {
   color: #1da19b;
 }
-.car {
+.car{
   background-color: #1da19b;
 }
-.hvr{
-  color: #ffffff!important;
-  background-color: rgb(0, 0, 0, 0.3)!important;
-  
-}
+

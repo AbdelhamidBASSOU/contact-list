@@ -65,7 +65,7 @@ if (isset($_POST['login'])) {
               <div id="erreurPassword" class="mb-3"></div>
             </div>
 
-            <button id="login" name="login" type="submit" class="btn auth-btn mt-2 mb-4">
+            <button id="login" name="login" type="submit" class="btn bt auth-btn mt-2 mb-4">
               Login
             </button>
           </form>

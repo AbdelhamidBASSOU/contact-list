@@ -91,7 +91,7 @@ if (isset($_POST['submit'])) {
               <div id="errPassV" class="mb-2"></div>
             </div>
 
-            <button id="signup" href="" name="submit" type="submit" class="btn auth-btn mt-2 mb-4">Register</button>
+            <button id="signup" href="" name="submit" type="submit" class="btn bt auth-btn mt-2 mb-4">Register</button>
           </form>
 
           <p class="text mb-4">
